@@ -18,7 +18,6 @@ namespace Editor
     {
         // 新建或打开的文件路径
         private string g_filePath = "";
-        private FontStyle g_fontStyle = FontStyle.Regular;
         public Main()
         {
             InitializeComponent();
@@ -50,31 +49,13 @@ namespace Editor
         {
             statusStripMain.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             status_detail.Alignment = ToolStripItemAlignment.Right;
+            richTextBox1.SelectionAlignment = HorizontalAlignment.Left;
+            alignLeft.Checked = true;
         }
-        /**
-         * 根据工具栏菜单是否点击获取字体样式
-         */
-        public FontStyle getFontStyle()
-        {
-            FontStyle fontStyle = FontStyle.Regular;
-            if (bold.Checked)
-            {
-                fontStyle = FontStyle.Bold | fontStyle;
-            }
-            if (italic.Checked)
-            {
-                fontStyle = FontStyle.Italic | fontStyle;
-            }
-            if (underline.Checked)
-            {
-                fontStyle = FontStyle.Underline | fontStyle;
-            }
-            if (deleteline.Checked)
-            {
-                fontStyle = FontStyle.Strikeout | fontStyle;
-            }
-            return fontStyle;
-        }
+
+        /****************************************************************************
+         **************************** 工具栏菜单 ************************************ 
+         ****************************************************************************/
 
         /**
          *  工具栏菜单-打开文件
@@ -168,7 +149,41 @@ namespace Editor
             int col = richTextBox1.SelectionStart - index + 1;
             // 设置状态栏行列
             status_detail.Text = "第" + row + "行" + "，第" + col + "列";
-            Console.WriteLine(richTextBox1.SelectionStart.ToString());
+        }
+
+        /**
+         * 选中事件，根据选中内容修改工具栏状态
+         */
+        private void richTextBox1_SelectionChanged(object sender, EventArgs e)
+        {
+            Font font = richTextBox1.SelectionFont;
+            HorizontalAlignment alignment = richTextBox1.SelectionAlignment;
+            // 设置字体状态
+            bold.Checked = font.Bold ? true : false;
+            italic.Checked = font.Italic ? true : false;
+            underline.Checked = font.Underline ? true : false;
+            deleteline.Checked = font.Strikeout ? true : false;
+            // 设置对齐状态
+            switch (alignment)
+            {
+                case HorizontalAlignment.Left:
+                    alignLeft.Checked = true;
+                    alignCenter.Checked = false;
+                    alignRight.Checked = false;
+                    break;
+                case HorizontalAlignment.Center:
+                    alignLeft.Checked = false;
+                    alignCenter.Checked = true;
+                    alignRight.Checked = false;
+                    break;
+                case HorizontalAlignment.Right:
+                    alignLeft.Checked = false;
+                    alignCenter.Checked = false;
+                    alignRight.Checked = true;
+                    break;
+                default:
+                    break;
+            }
         }
 
         /**
@@ -238,6 +253,7 @@ namespace Editor
          */
         private void bold_Click(object sender, EventArgs e)
         {
+            bold.Checked = bold.Checked ^ true;
             richTextBox1.SelectionFont = new Font(richTextBox1.SelectionFont, richTextBox1.SelectionFont.Style ^ FontStyle.Bold);
         }
 
@@ -246,6 +262,7 @@ namespace Editor
          */
         private void italic_Click(object sender, EventArgs e)
         {
+            italic.Checked = italic.Checked ^ true;
             richTextBox1.SelectionFont = new Font(richTextBox1.SelectionFont, richTextBox1.SelectionFont.Style ^ FontStyle.Italic);
         }
 
@@ -254,6 +271,7 @@ namespace Editor
          */
         private void underline_Click(object sender, EventArgs e)
         {
+            underline.Checked = underline.Checked ^ true;
             richTextBox1.SelectionFont = new Font(richTextBox1.SelectionFont, richTextBox1.SelectionFont.Style ^ FontStyle.Underline);
         }
         /**
@@ -261,6 +279,7 @@ namespace Editor
          */
         private void deleteline_Click(object sender, EventArgs e)
         {
+            deleteline.Checked = deleteline.Checked ^ true;
             richTextBox1.SelectionFont = new Font(richTextBox1.SelectionFont, richTextBox1.SelectionFont.Style ^ FontStyle.Strikeout);
         }
         /**
@@ -268,21 +287,46 @@ namespace Editor
          */
         private void alignLeft_Click(object sender, EventArgs e)
         {
-
+            richTextBox1.SelectionAlignment = HorizontalAlignment.Left;
+            alignLeft.Checked = true;
+            alignCenter.Checked = false;
+            alignRight.Checked = false;
         }
         /**
          * 工具栏菜单 - 居中对齐
          */
         private void alignCenter_Click(object sender, EventArgs e)
         {
-
+            alignCenter.Checked = alignCenter.Checked ^ true;
+            richTextBox1.SelectionAlignment =  HorizontalAlignment.Center;
+            if (alignCenter.Checked)
+            {
+                alignLeft.Checked = false;
+                alignRight.Checked = false;
+            }
+            else
+            {
+                alignLeft.Checked = true;
+                richTextBox1.SelectionAlignment = HorizontalAlignment.Left;
+            }
         }
         /**
          * 工具栏菜单 - 右对齐
          */
         private void alignRight_Click(object sender, EventArgs e)
         {
-
+            alignRight.Checked = alignRight.Checked ^ true;
+            richTextBox1.SelectionAlignment = HorizontalAlignment.Right;
+            if (alignRight.Checked)
+            {
+                alignLeft.Checked = false;
+                alignCenter.Checked = false;
+            }
+            else
+            {
+                alignLeft.Checked = true;
+                richTextBox1.SelectionAlignment = HorizontalAlignment.Left;
+            }
         }
 
     }

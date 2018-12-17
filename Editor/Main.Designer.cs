@@ -54,7 +54,14 @@
             this.format_align_left = new System.Windows.Forms.ToolStripMenuItem();
             this.format_align_right = new System.Windows.Forms.ToolStripMenuItem();
             this.format_align_center = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.format_bold = new System.Windows.Forms.ToolStripMenuItem();
+            this.format_italic = new System.Windows.Forms.ToolStripMenuItem();
+            this.format_underline = new System.Windows.Forms.ToolStripMenuItem();
+            this.format_deleteline = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.format_color = new System.Windows.Forms.ToolStripMenuItem();
+            this.format_background = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_help = new System.Windows.Forms.ToolStripMenuItem();
             this.help_about = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
@@ -72,28 +79,21 @@
             this.underline = new System.Windows.Forms.ToolStripButton();
             this.deleteline = new System.Windows.Forms.ToolStripButton();
             this.sep_line = new System.Windows.Forms.ToolStripSeparator();
-            this.sep_font = new System.Windows.Forms.ToolStripSeparator();
             this.alignLeft = new System.Windows.Forms.ToolStripButton();
             this.alignCenter = new System.Windows.Forms.ToolStripButton();
             this.alignRight = new System.Windows.Forms.ToolStripButton();
+            this.sep_font = new System.Windows.Forms.ToolStripSeparator();
+            this.fontColor = new System.Windows.Forms.ToolStripSplitButton();
+            this.fontBackgroundColor = new System.Windows.Forms.ToolStripSplitButton();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.font_size = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.font_type = new System.Windows.Forms.ToolStripComboBox();
             this.statusStripMain = new System.Windows.Forms.StatusStrip();
             this.status_ready = new System.Windows.Forms.ToolStripStatusLabel();
             this.status_detail = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.format_bold = new System.Windows.Forms.ToolStripMenuItem();
-            this.format_italic = new System.Windows.Forms.ToolStripMenuItem();
-            this.format_underline = new System.Windows.Forms.ToolStripMenuItem();
-            this.format_deleteline = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.format_background = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-            this.font_size = new System.Windows.Forms.ToolStripComboBox();
-            this.font_type = new System.Windows.Forms.ToolStripComboBox();
-            this.fontColor = new System.Windows.Forms.ToolStripSplitButton();
-            this.fontBackgroundColor = new System.Windows.Forms.ToolStripSplitButton();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.menuStripMain.SuspendLayout();
@@ -131,36 +131,36 @@
             // file_create
             // 
             this.file_create.Name = "file_create";
-            this.file_create.Size = new System.Drawing.Size(152, 22);
+            this.file_create.Size = new System.Drawing.Size(112, 22);
             this.file_create.Text = "新建";
             // 
             // file_open
             // 
             this.file_open.Name = "file_open";
-            this.file_open.Size = new System.Drawing.Size(152, 22);
+            this.file_open.Size = new System.Drawing.Size(112, 22);
             this.file_open.Text = "打开";
             // 
             // file_save
             // 
             this.file_save.Name = "file_save";
-            this.file_save.Size = new System.Drawing.Size(152, 22);
+            this.file_save.Size = new System.Drawing.Size(112, 22);
             this.file_save.Text = "保存";
             // 
             // file_save_as
             // 
             this.file_save_as.Name = "file_save_as";
-            this.file_save_as.Size = new System.Drawing.Size(152, 22);
+            this.file_save_as.Size = new System.Drawing.Size(112, 22);
             this.file_save_as.Text = "另存为";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(109, 6);
             // 
             // file_exit
             // 
             this.file_exit.Name = "file_exit";
-            this.file_exit.Size = new System.Drawing.Size(152, 22);
+            this.file_exit.Size = new System.Drawing.Size(112, 22);
             this.file_exit.Text = "退出";
             // 
             // menu_edit
@@ -184,64 +184,64 @@
             // edit_undo
             // 
             this.edit_undo.Name = "edit_undo";
-            this.edit_undo.Size = new System.Drawing.Size(152, 22);
+            this.edit_undo.Size = new System.Drawing.Size(100, 22);
             this.edit_undo.Text = "撤销";
             // 
             // edit_redo
             // 
             this.edit_redo.Name = "edit_redo";
-            this.edit_redo.Size = new System.Drawing.Size(152, 22);
+            this.edit_redo.Size = new System.Drawing.Size(100, 22);
             this.edit_redo.Text = "重做";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(97, 6);
             // 
             // edit_cut
             // 
             this.edit_cut.Name = "edit_cut";
-            this.edit_cut.Size = new System.Drawing.Size(152, 22);
+            this.edit_cut.Size = new System.Drawing.Size(100, 22);
             this.edit_cut.Text = "剪切";
             // 
             // edit_copy
             // 
             this.edit_copy.Name = "edit_copy";
-            this.edit_copy.Size = new System.Drawing.Size(152, 22);
+            this.edit_copy.Size = new System.Drawing.Size(100, 22);
             this.edit_copy.Text = "复制";
             // 
             // edit_paste
             // 
             this.edit_paste.Name = "edit_paste";
-            this.edit_paste.Size = new System.Drawing.Size(152, 22);
+            this.edit_paste.Size = new System.Drawing.Size(100, 22);
             this.edit_paste.Text = "粘贴";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(97, 6);
             // 
             // edit_search
             // 
             this.edit_search.Name = "edit_search";
-            this.edit_search.Size = new System.Drawing.Size(152, 22);
+            this.edit_search.Size = new System.Drawing.Size(100, 22);
             this.edit_search.Text = "查找";
             // 
             // edit_replace
             // 
             this.edit_replace.Name = "edit_replace";
-            this.edit_replace.Size = new System.Drawing.Size(152, 22);
+            this.edit_replace.Size = new System.Drawing.Size(100, 22);
             this.edit_replace.Text = "替换";
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(97, 6);
             // 
             // edit_check_all
             // 
             this.edit_check_all.Name = "edit_check_all";
-            this.edit_check_all.Size = new System.Drawing.Size(152, 22);
+            this.edit_check_all.Size = new System.Drawing.Size(100, 22);
             this.edit_check_all.Text = "全选";
             // 
             // menu_format
@@ -267,32 +267,72 @@
             this.format_align_right,
             this.format_align_center});
             this.format_align.Name = "format_align";
-            this.format_align.Size = new System.Drawing.Size(152, 22);
+            this.format_align.Size = new System.Drawing.Size(124, 22);
             this.format_align.Text = "对齐";
             // 
             // format_align_left
             // 
             this.format_align_left.Name = "format_align_left";
-            this.format_align_left.Size = new System.Drawing.Size(152, 22);
+            this.format_align_left.Size = new System.Drawing.Size(124, 22);
             this.format_align_left.Text = "左对齐";
             // 
             // format_align_right
             // 
             this.format_align_right.Name = "format_align_right";
-            this.format_align_right.Size = new System.Drawing.Size(152, 22);
+            this.format_align_right.Size = new System.Drawing.Size(124, 22);
             this.format_align_right.Text = "右对齐";
             // 
             // format_align_center
             // 
             this.format_align_center.Name = "format_align_center";
-            this.format_align_center.Size = new System.Drawing.Size(152, 22);
+            this.format_align_center.Size = new System.Drawing.Size(124, 22);
             this.format_align_center.Text = "居中对齐";
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(121, 6);
+            // 
+            // format_bold
+            // 
+            this.format_bold.Name = "format_bold";
+            this.format_bold.Size = new System.Drawing.Size(124, 22);
+            this.format_bold.Text = "加粗";
+            // 
+            // format_italic
+            // 
+            this.format_italic.Name = "format_italic";
+            this.format_italic.Size = new System.Drawing.Size(124, 22);
+            this.format_italic.Text = "倾斜";
+            // 
+            // format_underline
+            // 
+            this.format_underline.Name = "format_underline";
+            this.format_underline.Size = new System.Drawing.Size(124, 22);
+            this.format_underline.Text = "下划线";
+            // 
+            // format_deleteline
+            // 
+            this.format_deleteline.Name = "format_deleteline";
+            this.format_deleteline.Size = new System.Drawing.Size(124, 22);
+            this.format_deleteline.Text = "删除线";
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(121, 6);
             // 
             // format_color
             // 
             this.format_color.Name = "format_color";
-            this.format_color.Size = new System.Drawing.Size(152, 22);
+            this.format_color.Size = new System.Drawing.Size(124, 22);
             this.format_color.Text = "字体颜色";
+            // 
+            // format_background
+            // 
+            this.format_background.Name = "format_background";
+            this.format_background.Size = new System.Drawing.Size(124, 22);
+            this.format_background.Text = "字体底纹";
             // 
             // menu_help
             // 
@@ -305,7 +345,7 @@
             // help_about
             // 
             this.help_about.Name = "help_about";
-            this.help_about.Size = new System.Drawing.Size(152, 22);
+            this.help_about.Size = new System.Drawing.Size(100, 22);
             this.help_about.Text = "关于";
             // 
             // toolStripMain
@@ -474,11 +514,6 @@
             this.sep_line.Name = "sep_line";
             this.sep_line.Size = new System.Drawing.Size(6, 25);
             // 
-            // sep_font
-            // 
-            this.sep_font.Name = "sep_font";
-            this.sep_font.Size = new System.Drawing.Size(6, 25);
-            // 
             // alignLeft
             // 
             this.alignLeft.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -508,6 +543,54 @@
             this.alignRight.Size = new System.Drawing.Size(23, 22);
             this.alignRight.Text = "右对齐";
             this.alignRight.Click += new System.EventHandler(this.alignRight_Click);
+            // 
+            // sep_font
+            // 
+            this.sep_font.Name = "sep_font";
+            this.sep_font.Size = new System.Drawing.Size(6, 25);
+            // 
+            // fontColor
+            // 
+            this.fontColor.BackColor = System.Drawing.Color.White;
+            this.fontColor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.fontColor.Image = ((System.Drawing.Image)(resources.GetObject("fontColor.Image")));
+            this.fontColor.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.fontColor.Name = "fontColor";
+            this.fontColor.Size = new System.Drawing.Size(32, 22);
+            this.fontColor.Text = "toolStripSplitButton1";
+            this.fontColor.ToolTipText = "字体颜色";
+            // 
+            // fontBackgroundColor
+            // 
+            this.fontBackgroundColor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.fontBackgroundColor.Image = ((System.Drawing.Image)(resources.GetObject("fontBackgroundColor.Image")));
+            this.fontBackgroundColor.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.fontBackgroundColor.Name = "fontBackgroundColor";
+            this.fontBackgroundColor.Size = new System.Drawing.Size(32, 22);
+            this.fontBackgroundColor.Text = "toolStripSplitButton1";
+            this.fontBackgroundColor.ToolTipText = "字体底纹";
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(32, 22);
+            this.toolStripLabel1.Text = "字号";
+            // 
+            // font_size
+            // 
+            this.font_size.Name = "font_size";
+            this.font_size.Size = new System.Drawing.Size(75, 25);
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(32, 22);
+            this.toolStripLabel2.Text = "字体";
+            // 
+            // font_type
+            // 
+            this.font_type.Name = "font_type";
+            this.font_type.Size = new System.Drawing.Size(121, 25);
             // 
             // statusStripMain
             // 
@@ -551,88 +634,6 @@
             this.richTextBox1.Text = "";
             this.richTextBox1.SelectionChanged += new System.EventHandler(this.richTextBox1_SelectionChanged);
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
-            // 
-            // format_bold
-            // 
-            this.format_bold.Name = "format_bold";
-            this.format_bold.Size = new System.Drawing.Size(152, 22);
-            this.format_bold.Text = "加粗";
-            // 
-            // format_italic
-            // 
-            this.format_italic.Name = "format_italic";
-            this.format_italic.Size = new System.Drawing.Size(152, 22);
-            this.format_italic.Text = "倾斜";
-            // 
-            // format_underline
-            // 
-            this.format_underline.Name = "format_underline";
-            this.format_underline.Size = new System.Drawing.Size(152, 22);
-            this.format_underline.Text = "下划线";
-            // 
-            // format_deleteline
-            // 
-            this.format_deleteline.Name = "format_deleteline";
-            this.format_deleteline.Size = new System.Drawing.Size(152, 22);
-            this.format_deleteline.Text = "删除线";
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(149, 6);
-            // 
-            // format_background
-            // 
-            this.format_background.Name = "format_background";
-            this.format_background.Size = new System.Drawing.Size(152, 22);
-            this.format_background.Text = "字体底纹";
-            // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(32, 22);
-            this.toolStripLabel1.Text = "字号";
-            // 
-            // toolStripLabel2
-            // 
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(32, 22);
-            this.toolStripLabel2.Text = "字体";
-            // 
-            // font_size
-            // 
-            this.font_size.Name = "font_size";
-            this.font_size.Size = new System.Drawing.Size(75, 25);
-            // 
-            // font_type
-            // 
-            this.font_type.Name = "font_type";
-            this.font_type.Size = new System.Drawing.Size(121, 25);
-            // 
-            // fontColor
-            // 
-            this.fontColor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.fontColor.Image = ((System.Drawing.Image)(resources.GetObject("fontColor.Image")));
-            this.fontColor.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.fontColor.Name = "fontColor";
-            this.fontColor.Size = new System.Drawing.Size(32, 22);
-            this.fontColor.Text = "toolStripSplitButton1";
-            this.fontColor.ToolTipText = "字体颜色";
-            // 
-            // fontBackgroundColor
-            // 
-            this.fontBackgroundColor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.fontBackgroundColor.Image = ((System.Drawing.Image)(resources.GetObject("fontBackgroundColor.Image")));
-            this.fontBackgroundColor.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.fontBackgroundColor.Name = "fontBackgroundColor";
-            this.fontBackgroundColor.Size = new System.Drawing.Size(32, 22);
-            this.fontBackgroundColor.Text = "toolStripSplitButton1";
-            this.fontBackgroundColor.ToolTipText = "字体底纹";
             // 
             // openFileDialog1
             // 

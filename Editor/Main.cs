@@ -67,7 +67,7 @@ namespace Editor
             // 对话框的初始目录
             openFileDialog1.InitialDirectory = "c:\\";
             // 对话框中显示的文件筛选器
-            openFileDialog1.Filter = "txt 文件(*.txt)|*.txt|rtf 文件(*.rtf)|*.rtf|所有文件|*.*";
+            openFileDialog1.Filter = "rtf 文件(*.rtf)|*.rtf|txt 文件(*.txt)|*.txt|所有文件|*.*";
             // 控制对话框在关闭之前是否恢复当前目录
             openFileDialog1.RestoreDirectory = true;
             // 是否自动添加默认扩展名
@@ -86,15 +86,23 @@ namespace Editor
                 g_filePath = openFileDialog1.FileName;
                 if (StringUtil.isNotEmpty(g_filePath))
                 {
-                    StreamReader streamReader = new StreamReader(g_filePath, Encoding.UTF8);
-                    string text = "";
-                    // 若读取的文本不为空，则循环读取
-                    while ((text = streamReader.ReadLine()) != null)
+                    richTextBox1.Text = "";
+                    try
                     {
-                        richTextBox1.AppendText(text);
+                        StreamReader streamReader = new StreamReader(g_filePath, Encoding.UTF8);
+                        string text = "";
+                        // 若读取的文本不为空，则循环读取
+                        while ((text = streamReader.ReadLine()) != null)
+                        {
+                            richTextBox1.AppendText(text);
+                        }
+                        // 写文件流 用完后必须关闭
+                        streamReader.Close();
                     }
-                    // 写文件流 用完后必须关闭
-                    streamReader.Close();
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
                 Console.WriteLine("【Editor】打开文件：" + g_filePath);
             }
@@ -114,7 +122,7 @@ namespace Editor
             if (StringUtil.isEmpty(g_filePath))
             {
                 saveFileDialog1 = new SaveFileDialog();
-                saveFileDialog1.Filter = "txt 文件(*.txt)|*.txt|rtf 文件(*.rtf)|*.rtf|所有文件|*.*";
+                saveFileDialog1.Filter = "rtf 文件(*.rtf)|*.rtf|txt 文件(*.txt)|*.txt|所有文件|*.*";
                 saveFileDialog1.RestoreDirectory = true;
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {

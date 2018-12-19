@@ -196,6 +196,7 @@ namespace Editor
                     // 同时保存文本样式
                     richTextBox1.SaveFile(g_filePath);
                 }
+                MessageBox.Show("保存成功");
             }
             catch (Exception ex)
             {
@@ -693,7 +694,6 @@ namespace Editor
                 if (MessageBox.Show("是否保存文件", "退出", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
                 {
                     save.PerformClick();
-                    MessageBox.Show("保存成功");
                 }
             }
             // 关闭窗口

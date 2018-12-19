@@ -45,7 +45,14 @@ namespace Editor
          */
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // 关闭窗口
+            // 判断是否需要保存
+            if (g_isChanged)
+            {
+                if (MessageBox.Show("是否保存文件", "退出", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+                {
+                    save.PerformClick();
+                }
+            }
         }
         /****************************************************************************
          **************************** 自定义方法 ************************************ 

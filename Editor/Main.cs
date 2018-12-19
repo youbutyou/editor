@@ -21,9 +21,9 @@ namespace Editor
     {
         // 新建或打开的文件路径
         private string g_filePath = "";
-        // 是否编辑过
+        // 是否编辑过,用于退出时提示保存
         private bool g_isChanged = false;
-        // 查找开始坐标
+        // 查找开始坐标,光标位置
         private int g_indexFind = 0;
 
         public Main()
@@ -36,6 +36,7 @@ namespace Editor
          */
         private void Main_Load(object sender, EventArgs e)
         {
+            // 初始化控件
             initControl();
         }
 
@@ -44,7 +45,7 @@ namespace Editor
          */
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            // 关闭窗口
         }
         /****************************************************************************
          **************************** 自定义方法 ************************************ 
@@ -81,6 +82,7 @@ namespace Editor
             {
                 fontSize.Items.Add(size);
             }
+            // 设置默认
             fontType.Text = "宋体";
             fontSize.Text = "五号";
             richTextBox1.Font = new Font(new FontFamily(fontType.Text), FontSizeUtil.getSize(fontSize.Text));
@@ -146,8 +148,6 @@ namespace Editor
             {
                 Console.WriteLine("【Editor】点击取消按钮");
             }
-            fontType.Text = richTextBox1.Font.Name;
-            fontSize.Text = richTextBox1.Font.Size.ToString();
         }
 
         /**
@@ -157,10 +157,8 @@ namespace Editor
         {
             // 清空文件路径
             g_filePath = "";
-            // 清空控件
+            // 清空文本
             richTextBox1.Text = "";
-            fontType.Text = richTextBox1.Font.Name;
-            fontSize.Text = richTextBox1.Font.Size.ToString();
         }
 
         /**
@@ -218,7 +216,15 @@ namespace Editor
             int col = richTextBox1.SelectionStart - index + 1;
             // 设置状态栏行列
             status_detail.Text = "第" + row + "行" + "，第" + col + "列";
+            // 设置已编辑状态
             g_isChanged = true;
+        }
+        /**
+         * 记录点击文本光标位置，用于查找开始位置
+         */
+        private void richTextBox1_Click(object sender, EventArgs e)
+        {
+            g_indexFind = richTextBox1.SelectionStart;
         }
 
         /**
@@ -345,7 +351,9 @@ namespace Editor
             {
                 return;
             }
+            // 切换图标选中状态，下同
             bold.Checked = bold.Checked ^ true;
+            // 设置选中文本样式，下同
             richTextBox1.SelectionFont = new Font(font, font.Style ^ FontStyle.Bold);
         }
 
@@ -395,6 +403,7 @@ namespace Editor
         private void alignLeft_Click(object sender, EventArgs e)
         {
             richTextBox1.SelectionAlignment = HorizontalAlignment.Left;
+            // 设置左/中/右图标状态，三者只能选中一个,默认选中左对齐
             alignLeft.Checked = true;
             alignCenter.Checked = false;
             alignRight.Checked = false;
@@ -506,10 +515,45 @@ namespace Editor
         }
 
         /**
-         * 菜单栏
+         * 工具栏菜单 - 插入图片
+         */
+        private void picture_Click(object sender, EventArgs e)
+        {
+            openFileDialog1 = new OpenFileDialog();
+            // 对话框的初始目录
+            openFileDialog1.InitialDirectory = "c:\\";
+            // 对话框中显示的文件筛选器
+            openFileDialog1.Filter = "JPG 文件|*.jpg|PNG 文件|*.png|所有文件|*.*";
+            // 控制对话框在关闭之前是否恢复当前目录
+            openFileDialog1.RestoreDirectory = true;
+            // 是否自动添加默认扩展名
+            openFileDialog1.AddExtension = true;
+            // 默认扩展名
+            openFileDialog1.DefaultExt = ".txt";
+            // 在对话框返回之前，检查指定路径是否存在
+            openFileDialog1.CheckPathExists = true;
+            // 对话框标题栏
+            openFileDialog1.Title = "打开文件";
+            // 在对话框中选择的文件筛选器的索引，如果选第一项就设为1
+            openFileDialog1.FilterIndex = 1;
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string pictureFilePath = openFileDialog1.FileName;
+                if (StringUtil.isNotEmpty(pictureFilePath))
+                {
+                    System.Drawing.Image img = System.Drawing.Image.FromFile(pictureFilePath, true);
+                    Clipboard.SetDataObject(img, false);
+                    richTextBox1.Paste(DataFormats.GetFormat(DataFormats.Bitmap));
+                }
+            }
+        }
+
+        /**
+         * 菜单栏 功能同 工具栏菜单
          */
         private void menu_file_create_Click(object sender, EventArgs e)
         {
+            // 执行create点击事件，下同
             create.PerformClick();
         }
 
@@ -521,56 +565,6 @@ namespace Editor
         private void menu_file_save_Click(object sender, EventArgs e)
         {
             save.PerformClick();
-        }
-
-        private void menu_file_save_as_Click(object sender, EventArgs e)
-        {
-            // 另存为
-            String filePath = "";
-            saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "rtf 文件(*.rtf)|*.rtf|txt 文件(*.txt)|*.txt|word 文件(*.doc)|*.doc|所有文件|*.*";
-            saveFileDialog1.RestoreDirectory = true;
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                filePath = saveFileDialog1.FileName;
-            }
-            if (StringUtil.isEmpty(filePath))
-            {
-                // 没有创建文件,不做任何操作
-                return;
-            }
-            try
-            {
-                // 保存文件
-                if ((System.IO.Path.GetExtension(filePath)).ToLower() == ".txt")
-                {
-                    // 文本格式保存到txt文件
-                    richTextBox1.SaveFile(filePath, RichTextBoxStreamType.PlainText);
-                }
-                else
-                {
-                    // 同时保存文本样式
-                    richTextBox1.SaveFile(filePath);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void menu_file_exit_Click(object sender, EventArgs e)
-        {
-            // 判断是否需要保存
-            if (g_isChanged)
-            {
-                if (MessageBox.Show("是否保存文件", "退出", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
-                {
-                    save.PerformClick();
-                    MessageBox.Show("保存成功");
-                }
-            }
-            this.Close();
         }
 
         private void menu_edit_undo_Click(object sender, EventArgs e)
@@ -596,101 +590,6 @@ namespace Editor
         private void menu_edit_paste_Click(object sender, EventArgs e)
         {
             paste.PerformClick();
-        }
-
-        /**
-         *  查找
-         */
-        private void menu_edit_search_Click(object sender, EventArgs e)
-        {
-            if (-1 != richTextBox1.SelectionStart)
-            {
-                g_indexFind = richTextBox1.SelectionStart;
-            }
-            FindWnd findWnd = new FindWnd();
-            findWnd.OnGetFindStrEvent += this.GetFindStr;
-            findWnd.Show();
-        }
-
-        /**
-         * 替换
-         */
-        private void menu_edit_replace_Click(object sender, EventArgs e)
-        {
-            if (-1 != richTextBox1.SelectionStart)
-            {
-                g_indexFind = richTextBox1.SelectionStart;
-            }
-            ReplaceWnd replaceWnd = new ReplaceWnd();
-            replaceWnd.OnGetFindStrEvent += this.GetFindStr;
-            replaceWnd.OnGetReplaceStrEvent += this.GetReplaceStr;
-            replaceWnd.OnGetReplaceAllStrEvent += this.GetReplaceAllStr;
-            replaceWnd.Show();
-
-        }
-        /**
-         *  查找委托方法
-         */
-        private void GetFindStr(string findStr, bool isMatchCase, bool isMatchWord, bool isCycle)
-        {
-            if (StringUtil.isEmpty(findStr))
-            {
-                return;
-            }
-            RichTextBoxFinds finds = RichTextBoxFinds.None;
-            if (isMatchCase)
-            {
-                finds = finds | RichTextBoxFinds.MatchCase;
-            }
-            if (isMatchWord)
-            {
-                finds = finds | RichTextBoxFinds.WholeWord;
-            }
-            if (!isCycle)
-            {
-                int index = richTextBox1.Text.IndexOf(findStr, g_indexFind);
-                if (-1 == index)
-                {
-                    MessageBox.Show("查找无结果");
-                    return;
-                }
-            }
-            g_indexFind = richTextBox1.Find(findStr, g_indexFind, finds);
-            if (-1 == g_indexFind)
-            {
-                if (isCycle)
-                {
-                    g_indexFind = 0;
-                }
-                else
-                {
-                    MessageBox.Show("查找无结果");
-                    return;
-                }
-            }
-            g_indexFind = g_indexFind + findStr.Length;
-            this.Focus();
-        }
-        private void GetReplaceStr(string findStr, string replaceStr, bool isMatchCase, bool isMatchWord, bool isCycle)
-        {
-            if (StringUtil.isEmpty(richTextBox1.SelectedText))
-            {
-                GetFindStr(findStr, isMatchCase, isMatchWord, isCycle);
-            }
-            if (StringUtil.isNotEmpty(richTextBox1.SelectedText))
-            {
-                richTextBox1.SelectedText = replaceStr;
-            }
-            this.Focus();
-        }
-        private void GetReplaceAllStr(string findStr, string replaceStr, bool isMatchCase, bool isMatchWord, bool isCycle)
-        {
-            int index = 0;
-            while((index = richTextBox1.Find(findStr)) != -1)
-            {
-                richTextBox1.SelectedText = replaceStr;
-            }
-            this.Focus();
         }
 
 
@@ -744,15 +643,197 @@ namespace Editor
             fontBackgroundColor.PerformClick();
         }
 
+        /**
+         *  菜单栏 - 另存为
+         */
+        private void menu_file_save_as_Click(object sender, EventArgs e)
+        {
+            // 创建文件路径
+            String filePath = "";
+            saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "rtf 文件(*.rtf)|*.rtf|txt 文件(*.txt)|*.txt|word 文件(*.doc)|*.doc|所有文件|*.*";
+            saveFileDialog1.RestoreDirectory = true;
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                filePath = saveFileDialog1.FileName;
+            }
+            if (StringUtil.isEmpty(filePath))
+            {
+                // 没有创建文件,不做任何操作
+                return;
+            }
+            try
+            {
+                // 保存文件
+                if ((System.IO.Path.GetExtension(filePath)).ToLower() == ".txt")
+                {
+                    // 文本格式保存到txt文件
+                    richTextBox1.SaveFile(filePath, RichTextBoxStreamType.PlainText);
+                }
+                else
+                {
+                    // 同时保存文本样式
+                    richTextBox1.SaveFile(filePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /**
+         * 菜单栏 - 退出
+         */
+        private void menu_file_exit_Click(object sender, EventArgs e)
+        {
+            // 判断是否需要保存
+            if (g_isChanged)
+            {
+                if (MessageBox.Show("是否保存文件", "退出", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+                {
+                    save.PerformClick();
+                    MessageBox.Show("保存成功");
+                }
+            }
+            // 关闭窗口
+            this.Close();
+        }
+
+        /**
+         *  菜单栏 - 查找和替换
+         */
+        private void menu_edit_search_Click(object sender, EventArgs e)
+        {
+            if (-1 != richTextBox1.SelectionStart)
+            {
+                g_indexFind = richTextBox1.SelectionStart;
+            }
+            // 使用委托方法将子窗口参数传递给父窗口
+            FindAndReplaceWnd findAndReplaceWnd = new FindAndReplaceWnd();
+            findAndReplaceWnd.OnGetFindStrEvent += this.GetFindStr;
+            findAndReplaceWnd.OnGetReplaceStrEvent += this.GetReplaceStr;
+            findAndReplaceWnd.OnGetReplaceAllStrEvent += this.GetReplaceAllStr;
+            findAndReplaceWnd.Show();
+        }
+        /**
+         * 查找委托方法
+         */
+        private void GetFindStr(string findStr, bool isMatchCase, bool isMatchWord, bool isCycle)
+        {
+            if (StringUtil.isEmpty(findStr))
+            {
+                // 检测查询内容为空则退出
+                return;
+            }
+            RichTextBoxFinds finds = RichTextBoxFinds.None;
+            if (isMatchCase)
+            {
+                // 大小写匹配
+                finds = finds | RichTextBoxFinds.MatchCase;
+            }
+            if (isMatchWord)
+            {
+                // 全字匹配
+                finds = finds | RichTextBoxFinds.WholeWord;
+            }
+            // 从当前光标位置查询是否含查找内容
+            int index = richTextBox1.Text.IndexOf(findStr, g_indexFind);
+            if (-1 == index)
+            {
+                // 查询无结果
+                if (isCycle)
+                {
+                    // 循环查找，则光标位置重置到文件头
+                    g_indexFind = 0;
+                }
+                else
+                {
+                    // 退出查询
+                    MessageBox.Show("查找无结果");
+                    this.Focus();
+                    return;
+                }
+            }
+            // 从光标位置查找并高亮显示第一个
+            g_indexFind = richTextBox1.Find(findStr, g_indexFind, finds);
+            if (-1 == g_indexFind)
+            {
+                // 查询无结果
+                if (isCycle)
+                {
+                    // 循环查找则重置光标位置到文件头
+                    g_indexFind = 0;
+                }
+                else
+                {
+                    // 无勾选循环查找则退出查询
+                    MessageBox.Show("查找无结果");
+                    this.Focus();
+                    return;
+                }
+            }
+            else
+            {
+                // 查询成功后光标位置后移
+                g_indexFind = g_indexFind + findStr.Length;
+            }
+            // 聚焦到父窗口
+            this.Focus();
+        }
+        /**
+         * 替换单个委托方法
+         */
+        private void GetReplaceStr(string findStr, string replaceStr, bool isMatchCase, bool isMatchWord, bool isCycle)
+        {
+            // 检测选中内容是否为查询内容
+            if (StringUtil.isEmpty(richTextBox1.SelectedText) || !richTextBox1.SelectedText.Equals(findStr))
+            {
+                // 否，则重新查找定位到查找内容
+                GetFindStr(findStr, isMatchCase, isMatchWord, isCycle);
+            }
+            // 检测是否含有查找内容
+            if (StringUtil.isNotEmpty(richTextBox1.SelectedText))
+            {
+                // 替换查找内容
+                richTextBox1.SelectedText = replaceStr;
+            }
+            // 聚焦到父窗口
+            this.Focus();
+        }
+        /**
+         * 替换全部委托方法
+         */
+        private void GetReplaceAllStr(string findStr, string replaceStr, bool isMatchCase, bool isMatchWord, bool isCycle)
+        {
+            // 检测是否含有查找内容
+            int index = richTextBox1.Text.IndexOf(findStr);
+            if (-1 == index)
+            {
+                // 无，则退出
+                MessageBox.Show("查找无结果");
+                this.Focus();
+                return;
+            }
+            // 循环查找定位查找内容，并替换
+            while((index = richTextBox1.Find(findStr)) != -1)
+            {
+                richTextBox1.SelectedText = replaceStr;
+            }
+            // 聚焦到父窗口
+            this.Focus();
+        }
+
+        /**
+         * 菜单栏 - 关于
+         */
         private void menu_help_about_Click(object sender, EventArgs e)
         {
             // about
+            AboutWnd aboutWnd = new AboutWnd();
+            aboutWnd.ShowDialog();
         }
 
-        private void richTextBox1_Click(object sender, EventArgs e)
-        {
-            g_indexFind = richTextBox1.SelectionStart;
-        }
 
     }
 }

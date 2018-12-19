@@ -45,11 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FindWnd.cs">
+    <Compile Include="AboutWnd.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FindWnd.Designer.cs">
-      <DependentUpon>FindWnd.cs</DependentUpon>
+    <Compile Include="AboutWnd.Designer.cs">
+      <DependentUpon>AboutWnd.cs</DependentUpon>
     </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
@@ -59,16 +59,16 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReplaceWnd.cs">
+    <Compile Include="FindAndReplaceWnd.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ReplaceWnd.Designer.cs">
-      <DependentUpon>ReplaceWnd.cs</DependentUpon>
+    <Compile Include="FindAndReplaceWnd.Designer.cs">
+      <DependentUpon>FindAndReplaceWnd.cs</DependentUpon>
     </Compile>
     <Compile Include="util\FontSizeUtil.cs" />
     <Compile Include="util\StringUtil.cs" />
-    <EmbeddedResource Include="FindWnd.resx">
-      <DependentUpon>FindWnd.cs</DependentUpon>
+    <EmbeddedResource Include="AboutWnd.resx">
+      <DependentUpon>AboutWnd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
@@ -82,8 +82,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ReplaceWnd.resx">
-      <DependentUpon>ReplaceWnd.cs</DependentUpon>
+    <EmbeddedResource Include="FindAndReplaceWnd.resx">
+      <DependentUpon>FindAndReplaceWnd.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

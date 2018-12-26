@@ -46,12 +46,14 @@ namespace Editor
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
             // 判断是否需要保存
-            if (g_isChanged && StringUtil.isNotEmpty(g_filePath))
+            if (g_isChanged)
             {
-                // 若已打开文件做变动弹框提示是否保存
-                if (MessageBox.Show("是否保存文件", "退出", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+                if ((StringUtil.isNotEmpty(richTextBox1.Text) && richTextBox1.Text.Length > 1) || StringUtil.isNotEmpty(g_filePath))
                 {
-                    save.PerformClick();
+                    if (MessageBox.Show("是否保存文件", "退出", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+                    {
+                        save.PerformClick();
+                    }
                 }
             }
         }
@@ -699,10 +701,12 @@ namespace Editor
             // 判断是否需要保存
             if (g_isChanged && StringUtil.isNotEmpty(g_filePath))
             {
-                // 若已打开文件做变动弹框提示是否保存
-                if (MessageBox.Show("是否保存文件", "退出", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+                if ((StringUtil.isNotEmpty(richTextBox1.Text) && richTextBox1.Text.Length > 1) || StringUtil.isNotEmpty(g_filePath))
                 {
-                    save.PerformClick();
+                    if (MessageBox.Show("是否保存文件", "退出", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+                    {
+                        save.PerformClick();
+                    }
                 }
             }
             // 关闭窗口
